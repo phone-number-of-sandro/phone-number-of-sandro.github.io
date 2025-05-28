@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -33,9 +34,33 @@
       transform: translateY(-4px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.4);
     }
+    audio {
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
   <a href="tel:+393475584710" class="phone-link">+39 347 558 4710</a>
+  <audio id="audioPlayer" controls>
+    <source src="mina-se_telefondo.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <script>
+    const audio = document.getElementById('audioPlayer');
+    let audioStarted = false;
+
+    function tryPlayAudio() {
+      if (!audioStarted) {
+        audio.play().then(() => {
+          audioStarted = true;
+        }).catch(err => {
+          console.warn('Autoplay failed:', err);
+        });
+      }
+    }
+
+    document.addEventListener('click', tryPlayAudio);
+    document.addEventListener('touchstart', tryPlayAudio);
+  </script>
 </body>
 </html>
